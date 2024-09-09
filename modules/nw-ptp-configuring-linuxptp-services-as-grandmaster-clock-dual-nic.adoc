@@ -6,7 +6,7 @@
 [id="configuring-linuxptp-services-as-grandmaster-clock-dual-nic_{context}"]
 = Configuring linuxptp services as a grandmaster clock for dual E810 NICs
 
-You can configure the `linuxptp` services (`ptp4l`, `phc2sys`, `ts2phc`) as a grandmaster clock (T-GM) for dual E810 NICs by creating a `PtpConfig` custom resource (CR) that configures the host NICs.
+You can configure the `linuxptp` services, for example, `ptp4l`, `phc2sys`, `ts2phc`, as a grandmaster clock (T-GM) for dual E810 NICs by creating a `PtpConfig` custom resource (CR) that configures the host NICs.
 
 You can configure the `linuxptp` services as a T-GM for the following dual E810 NICs:
 
