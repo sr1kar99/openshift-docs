@@ -1,0 +1,39 @@
+// Module included in the following assemblies:
+
+// *scalability_and_performance/cluster-compare/creating-a-reference-configuration.adoc
+
+:_mod-docs-content-type: CONCEPT
+
+[id="cluster-compare-substitution-of-rel-crs_{context}"]
+= Substitution of related custom resources in templates
+
+When writing templates for cluster comparison, you can reference values from multiple related custom resources (CRs) to make configuration decisions. For example, in scenarios like tuning, a template can require data from a related `PerformanceProfile` CR to influence settings in the `Tuned` CR.
+
+To substitute values from related CRs into your templates, you can define the values in the `metadata.yaml` file under the `lookup_substitutions` section. This approach allows templates to access predefined values from related CRs.
+
+For example, define the substitutions in metadata.yaml:
++
+.Example `metadata.yaml` configuration with the `lookup_substitutions` section
+[source,yaml]
+----
+global:
+  lookup_substitutions:
+    lookupCRs_v1_ConfigMap_default:
+    - data:
+        fieldname: first substituted value
+    - data:
+        fieldname: second substituted value
+    lookupCR_v1_ConfigMap_default_single:
+      data:
+        fieldname: single value
+# ..
+----
+
+You can then reference this data in your template as follows:
+[source,yaml]
+----
+{{- $objList := $.Values.global.lookup_substitutions.lookupCRs_v1_ConfigMap_default }}
+{{- $plainObj := $.Values.global.lookup_substitutions.lookupCR_v1_ConfigMap_default_single }}
+----
+
+This configuration ensures your templates can evaluate related resources flexibly and with more control, without relying on dynamic resource lookups at runtime.
